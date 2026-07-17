@@ -36,12 +36,14 @@ jobs:
     steps:
       - name: ec2 login
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          COMMIT_VERSION: ${{ inputs.envs }}
         with:
           host: ${{ secrets.host }}
           username: ${{ secrets.username }}
           key: ${{ secrets.key }}
           port: ${{ inputs.port }}
-          envs: ${{ inputs.envs }}
+          envs: ${{ env.COMMIT_VERSION }}
           script: |
 
            if ! command -v docker &> /dev/null; then
