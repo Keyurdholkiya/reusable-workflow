@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.username }}
           key: ${{ secrets.key }}
           port: ${{ inputs.port }}
-          envs: ${{ env.COMMIT_VERSION }}
+          envs: COMMIT_VERSION
           script: |
 
            if ! command -v docker &> /dev/null; then
