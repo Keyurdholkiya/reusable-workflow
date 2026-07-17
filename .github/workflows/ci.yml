@@ -1,0 +1,31 @@
+name: this is my workflow to check the ci
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+        description: write the node version to want
+jobs:
+  test-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+          cache: npm 
+
+      - name: install dependencies
+        run: npm ci
+
+
+      - name: lint unit run
+        run: npm run lint
+
+      - name: test unit run
+        run: npm test
+
