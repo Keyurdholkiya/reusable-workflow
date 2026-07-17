@@ -1,0 +1,51 @@
+name: this is my workflow to login to ec2
+on:
+  workflow_call:
+    inputs:
+      port:
+        required: false
+        type: string
+        default: "22"
+        description: port of ssh 
+      envs:
+        required: false
+        type: string
+        description: set the envs
+
+    secrets:
+      host:
+        required: true
+      username:
+        required: true
+      key:
+        required: true
+
+        
+      
+jobs:
+  deploy-ec2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ec2 login
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.host }}
+          username: ${{ secrets.username }}
+          key: ${{ secrets.key }}
+          port: ${{ inputs.port }}
+          envs: ${{ inputs.envs }}
+          script: |
+
+           if ! command -v docker &> /dev/null; then
+              sudo apt update
+              sudo apt install -y docker.io
+              sudo systemctl enable docker
+              sudo systemctl start docker
+           fi
+
+           
+
+     
+
+
+        
