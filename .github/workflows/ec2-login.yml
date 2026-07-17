@@ -12,12 +12,20 @@ on:
         type: string
         description: set the envs
 
+      script:
+        required: true
+        type: string
+        description: The bash script execution sequence
+
     secrets:
       host:
         required: true
       username:
         required: true
       key:
+        required: true
+
+      DOCKER_USERNAME:
         required: true
 
         
@@ -43,7 +51,12 @@ jobs:
               sudo systemctl start docker
            fi
 
-           
+           # Export secrets into environment variables for the script to use
+           export DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}"
+
+           ${{ inputs.script }}
+
+
 
      
 
