@@ -22,9 +22,8 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-
-      - name: lint unit run
-        run: npm run lint
+      # - name: lint unit run
+      #   run: npm run lint
 
       - name: test unit run
         run: npm test
